@@ -114,7 +114,7 @@ public class Basemap extends ForwardingProfile {
 
     Boolean tilezen = args.getBoolean("tilezen", "Create the Tilezen 1.9 profile", false);
 
-    String area = args.getString("area", "geofabrik area to download", "monaco");
+    String area = args.getString("area", "geofabrik area to download", "sweden");
 
     Planetiler.create(args)
       .setProfile(new Basemap(tilezen))

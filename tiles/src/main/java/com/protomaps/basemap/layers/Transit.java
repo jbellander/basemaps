@@ -41,7 +41,7 @@ public class Transit implements ForwardingProfile.FeatureProcessor, ForwardingPr
         .setAttr("ref", sf.getString("ref"))
         .setAttr("highspeed", sf.getString("highspeed"))
         .setAttr("layer", sf.getString("layer"))
-        .setZoomRange(minzoom, 15);
+        .setZoomRange(minzoom, 6);
 
       String kind = "other";
       if (sf.hasTag("aeroway")) {

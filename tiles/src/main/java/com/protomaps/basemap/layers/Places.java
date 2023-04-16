@@ -54,7 +54,7 @@ public class Places implements ForwardingProfile.FeatureProcessor, ForwardingPro
         feat.setAttr("pmap:kind", "neighbourhood")
           .setZoomRange(8, 15);
       } else if (sf.hasTag("place", "town")) {
-        feat.setAttr("pmap:kind", "neighbourhood")
+        feat.setAttr("pmap:kind", "town")
           .setZoomRange(8, 15);
       } else if (sf.hasTag("place", "village")) {
         feat.setAttr("pmap:kind", "neighbourhood")
