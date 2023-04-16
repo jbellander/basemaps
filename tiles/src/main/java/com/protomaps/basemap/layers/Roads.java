@@ -47,7 +47,7 @@ public class Roads implements ForwardingProfile.FeatureProcessor, ForwardingProf
       } else if (highway.equals("residential") || highway.equals("service") || highway.equals("unclassified") ||
         highway.equals("road")) {
         feat.setAttr("pmap:kind", "minor_road").setZoomRange(12, 15);
-      } else if (highway.equals("track") || highway.equals("cycleway")) {
+      } else if (highway.equals("track") || highway.equals("cycleway") || highway.equals("bridleway")) {
         feat.setAttr("pmap:kind", "gravel_road").setZoomRange(12, 15);    
       } else if (highway.equals("path") || highway.equals("footway")) {
         feat.setAttr("pmap:kind", "trail").setZoomRange(12, 15);  

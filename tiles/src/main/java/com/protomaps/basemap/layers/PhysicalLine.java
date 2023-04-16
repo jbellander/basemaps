@@ -17,12 +17,13 @@ public class PhysicalLine implements ForwardingProfile.FeatureProcessor, Forward
 
   @Override
   public void processFeature(SourceFeature sf, FeatureCollector features) {
-    if (sf.canBeLine() && (sf.hasTag("waterway") ||
+    if (sf.canBeLine() && (sf.hasTag("waterway") || sf.hasTag("power") ||
       sf.hasTag("natural", "strait", "cliff")) && (!sf.hasTag("waterway", "riverbank", "reservoir"))) {
       var feat = features.line(this.name())
         .setId(FeatureId.create(sf))
         .setAttr("waterway", sf.getString("waterway"))
         .setAttr("natural", sf.getString("natural"))
+        .setAttr("power", sf.getString("power"))
         .setZoomRange(12, 15);
 
       String kind = "other";
@@ -30,6 +31,8 @@ public class PhysicalLine implements ForwardingProfile.FeatureProcessor, Forward
         kind = "waterway";
       } else if (sf.hasTag("natural")) {
         kind = "natural";
+      } else if (sf.hasTag("power")) {
+        kind = "power";  
       }
 
       feat.setAttr("pmap:kind", kind);
