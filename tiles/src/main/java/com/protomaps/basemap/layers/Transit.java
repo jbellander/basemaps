@@ -22,7 +22,7 @@ public class Transit implements ForwardingProfile.FeatureProcessor, ForwardingPr
       sf.hasTag("aerialway", "cable_car") ||
       sf.hasTag("route", "ferry") ||
       sf.hasTag("aeroway", "runway", "taxiway")) &&
-      (!sf.hasTag("railway", "abandoned", "construction", "platform", "proposed"))) {
+      (!sf.hasTag("railway", "abandoned", "construction", "platform", "proposed", "razed", "ferry"))) {
 
       int minzoom = 11;
 
@@ -40,8 +40,8 @@ public class Transit implements ForwardingProfile.FeatureProcessor, ForwardingPr
         .setAttr("network", sf.getString("network"))
         .setAttr("ref", sf.getString("ref"))
         .setAttr("highspeed", sf.getString("highspeed"))
-        .setAttr("layer", sf.getString("layer"))
-        .setZoomRange(minzoom, 6);
+        .setAttr("layer", sf.getString("layer"));
+        //.setZoomRange(minzoom, 15);
 
       String kind = "other";
       if (sf.hasTag("aeroway")) {
