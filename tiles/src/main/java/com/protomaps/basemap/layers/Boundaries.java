@@ -32,7 +32,7 @@ public class Boundaries implements ForwardingProfile.OsmRelationPreprocessor, Fo
         OptionalInt minAdminLevel = recs.stream().mapToInt(r -> r.relation().adminLevel).min();
         var line =
           features.line(this.name()).setId(FeatureId.create(sf)).setMinPixelSize(0).setAttr("pmap:min_admin_level",
-            minAdminLevel.getAsInt());
+            minAdminLevel.getAsInt()).setAttr("ref", sf.getString("ref"));
         if (minAdminLevel.getAsInt() <= 2) {
           line.setMinZoom(0);
         } else if (minAdminLevel.getAsInt() <= 4) {

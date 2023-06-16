@@ -42,6 +42,9 @@ public class Basemap extends ForwardingProfile {
       var natural = new Natural();
       registerHandler(natural);
       registerSourceHandler("osm", natural);
+      registerSourceHandler("nvr", natural::processNvr);
+      registerSourceHandler("nvo", natural::processNvo);
+      registerSourceHandler("nationalparker", natural::processNationalparker);
 
       var physical_line = new PhysicalLine();
       registerHandler(physical_line);
@@ -58,10 +61,12 @@ public class Basemap extends ForwardingProfile {
       var poi = new Pois();
       registerHandler(poi);
       registerSourceHandler("osm", poi);
+      registerSourceHandler("nvr_pois", poi::processNvr);
 
       var roads = new Roads();
       registerHandler(roads);
       registerSourceHandler("osm", roads);
+      registerSourceHandler("pand_trails", roads::processTrails);
 
       var transit = new Transit();
       registerHandler(transit);
@@ -125,7 +130,17 @@ public class Basemap extends ForwardingProfile {
         "https://osmdata.openstreetmap.de/download/water-polygons-split-3857.zip")
       .addShapefileSource("osm_land", sourcesDir.resolve("land-polygons-split-3857.zip"),
         "https://osmdata.openstreetmap.de/download/land-polygons-split-3857.zip")
-      .setOutput(Path.of(area + ".pmtiles"))
+      .addShapefileSource("nvr_pois", sourcesDir.resolve("Anordningar_shp.zip"),
+        "https://geodata.naturvardsverket.se/nedladdning/friluftsliv/Anordningar_shp.zip")
+      .addShapefileSource("nvr", sourcesDir.resolve("naturreservat.zip"),
+        "https://geodata.naturvardsverket.se/nedladdning/friluftsliv/Anordningar_shp2.zip") 
+      .addShapefileSource("nvo", sourcesDir.resolve("naturvardsomraden.zip"),
+        "https://geodata.naturvardsverket.se/nedladdning/friluftsliv/Anordningar_shp3.zip")    
+      .addShapefileSource("nationalparker", sourcesDir.resolve("nationalparker.zip"),
+        "https://geodata.naturvardsverket.se/nedladdning/friluftsliv/Anordningar_shp4.zip")    
+      .addShapefileSource("pand_trails", sourcesDir.resolve("s22.zip"),
+        "https://geodata.naturvardsverket.se/nedladdning/friluftsliv/Leder_shp.zip")            
+      .setOutput(Path.of("e:/" + area + ".pmtiles"))
       .run();
   }
 }

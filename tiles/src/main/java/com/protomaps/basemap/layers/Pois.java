@@ -15,6 +15,15 @@ public class Pois implements ForwardingProfile.FeatureProcessor, ForwardingProfi
     return "pois";
   }
 
+  public void processNvr(SourceFeature sf, FeatureCollector features) {
+    if (sf.isPoint()) {
+      var feature = features.point(this.name())
+        .setAttr("nvr_pointofinterest", sf.getString("TYP"))
+        .setAttr("nvr_pointofinterest_subtype", sf.getString("UNDERTYP"))
+        .setAttr("nvr_id", sf.getString("ANORD_ID"));
+    }
+  }
+
   @Override
   public void processFeature(SourceFeature sf, FeatureCollector features) {
     if (sf.isPoint() && (sf.hasTag("amenity") ||

@@ -18,6 +18,14 @@ public class Roads implements ForwardingProfile.FeatureProcessor, ForwardingProf
     return "roads";
   }
 
+  public void processTrails(SourceFeature sf, FeatureCollector features) {
+    if (sf.canBeLine()) {
+      var feature = features.line(this.name())
+        .setAttr("pand_trail_name", sf.getString("NAMN"))
+        .setAttr("pand_trail_name", sf.getString("ANMÄRKNIN"));
+    }
+  }
+
   @Override
   public void processFeature(SourceFeature sourceFeature, FeatureCollector features) {
     if (sourceFeature.canBeLine() && sourceFeature.hasTag("highway") &&
@@ -68,7 +76,7 @@ public class Roads implements ForwardingProfile.FeatureProcessor, ForwardingProf
   @Override
   public List<VectorTile.Feature> postProcess(int zoom, List<VectorTile.Feature> items) {
 
-    items = linkSimplify(items, "highway", "motorway", "motorway_link");
+    /*items = linkSimplify(items, "highway", "motorway", "motorway_link");
     items = linkSimplify(items, "highway", "trunk", "trunk_link");
     items = linkSimplify(items, "highway", "primary", "primary_link");
     items = linkSimplify(items, "highway", "secondary", "secondary_link");
@@ -77,7 +85,7 @@ public class Roads implements ForwardingProfile.FeatureProcessor, ForwardingProf
       0.5, // after merging, remove lines that are still less than 0.5px long
       0.1, // simplify output linestrings using a 0.1px tolerance
       4 // remove any detail more than 4px outside the tile boundary
-    );
+    );*/
 
     return items;
   }

@@ -17,6 +17,36 @@ public class Natural implements ForwardingProfile.FeatureProcessor, ForwardingPr
     return "natural";
   }
 
+  public void processNvr(SourceFeature sf, FeatureCollector features) {
+    if (sf.canBePolygon()) {
+      var feature = features.polygon(this.name())
+        .setAttr("nvr_id", sf.getString("NVR_ID"))
+        .setAttr("nvr_name", sf.getString("NAMN"))
+        .setAttr("nvr_typ", sf.getString("SKYDDSTYP"))
+        .setAttr("nvr_status", sf.getString("BESLSTATUS"));
+    }
+  }
+
+  public void processNvo(SourceFeature sf, FeatureCollector features) {
+    if (sf.canBePolygon()) {
+      var feature = features.polygon(this.name())
+        .setAttr("nvr_id", sf.getString("NVR_ID"))
+        .setAttr("nvr_name", sf.getString("NAMN"))
+        .setAttr("nvr_typ", sf.getString("SKYDDSTYP"))
+        .setAttr("nvr_status", sf.getString("BESLSTATUS"));
+    }
+  }
+
+  public void processNationalparker(SourceFeature sf, FeatureCollector features) {
+    if (sf.canBePolygon()) {
+      var feature = features.polygon(this.name())
+        .setAttr("nvr_id", sf.getString("NVR_ID"))
+        .setAttr("nvr_name", sf.getString("NAMN"))
+        .setAttr("nvr_typ", sf.getString("SKYDDSTYP"))
+        .setAttr("nvr_status", sf.getString("BESLSTATUS"));
+    }
+  }
+
   @Override
   public void processFeature(SourceFeature sf, FeatureCollector features) {
     if (sf.canBePolygon() && (sf.hasTag("natural", "wood", "glacier", "scrub", "sand", "wetland", "bare_rock") ||
@@ -28,6 +58,9 @@ public class Natural implements ForwardingProfile.FeatureProcessor, ForwardingPr
         .setAttr("boundary", sf.getString("boundary"))
         .setAttr("landuse", sf.getString("landuse"))
         .setAttr("leisure", sf.getString("leisure"))
+        .setAttr("nvr_id", sf.getString("lst:nvrid"))
+        .setAttr("nvr_id", sf.getString("ref:NVRID"))
+        .setAttr("nvr_orginalid", sf.getString("lst:ref"))
         .setZoomRange(5, 15);
 
       OsmNames.setOsmNames(feat, sf, 0);
